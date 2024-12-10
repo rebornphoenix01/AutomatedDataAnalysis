@@ -1,0 +1,4 @@
+*.csv
+.env
+.autolysis-env
+requirements.txt
