@@ -105,4 +105,4 @@ To analyze the dataset with shape (2652, 8), let's break down the columns and hy
 By synthesizing and continually monitoring these insights and actions, the dataset can inform more strategic decision-making and enhance the value generated from the contributions.
 
 ## Visualizations
-![Visualization](//correlation_heatmap.png)
+![Visualization](/media/correlation_heatmap.png)
