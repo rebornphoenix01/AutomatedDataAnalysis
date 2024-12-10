@@ -106,4 +106,4 @@ To analyze and provide insights on the dataset with the given shape and columns,
 By analyzing and acting upon these insights, we can aim to enhance life satisfaction and well-being across different populations while addressing the disparities that exist globally.
 
 ## Visualizations
-![Visualization](happiness\correlation_heatmap.png)
+![Visualization](/happiness/correlation_heatmap.png)

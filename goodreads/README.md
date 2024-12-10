@@ -74,7 +74,7 @@ max     10000.00000       3.328864e+07  3.553423e+07  ...  3.011543e+06         
 ## Insights from LLM
 ### Overview of the Dataset
 
-The dataset contains 10,000 records (rows) and 23 columns related to books. Here’s a detailed description of each column:
+The dataset contains 10,000 records (rows) and 23 columns related to books. Hereï¿½s a detailed description of each column:
 
 1. **Identifiers:**
    - `book_id`: A unique identifier for each book.
@@ -144,4 +144,4 @@ The dataset contains 10,000 records (rows) and 23 columns related to books. Here
 The dataset presents a wealth of information that can be used for a variety of analyses and strategic actions. By leveraging the insights drawn from the data, stakeholders can enhance book curation, marketing, and overall reader engagement, ultimately fostering a richer literary community.
 
 ## Visualizations
-![Visualization](goodreads\correlation_heatmap.png)
+![Visualization](/goodreads/correlation_heatmap.png)
