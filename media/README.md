@@ -39,70 +39,83 @@ min           NaN      NaN    NaN                NaN                NaN     1.00
 max           NaN      NaN    NaN                NaN                NaN     5.000000     5.000000       3.000000
 ```
 
+## Advanced Analysis
+### Skewness
+- overall: 0.16
+- quality: 0.02
+- repeatability: 0.78
+
+### Feature Importance
+- overall: 0.8217
+- quality: 0.1783
+
 ## Insights from LLM
-To analyze the dataset with shape (2652, 8), let's break down the columns and hypothesize what insights can be derived from them, as well as potential actions based on those insights.
+### Dataset Overview
+The dataset in question has a shape of (2652, 8), indicating it contains 2652 rows (observations) and 8 columns (features). The columns represent various attributes of the data, including metadata (like date, language, type) along with numerical ratings (overall, quality, repeatability).
 
-### Overview of the Dataset
+### Missing Values
+The dataset has missing values as follows:
+- `date`: 99 missing values
+- `language`: 0 missing values
+- `type`: 0 missing values
+- `title`: 0 missing values
+- `by`: 262 missing values
+- `overall`: 0 missing values
+- `quality`: 0 missing values
+- `repeatability`: 0 missing values 
 
-#### Columns:
-1. **date**: Likely indicates the date each entry was created or submitted. 
-2. **language**: Indicates the language in which the entry is written.
-3. **type**: Could represent the category or format of the entry (e.g., review, comment, article).
-4. **title**: The title or heading of the entry.
-5. **by**: Indicates the author or contributor of the entry.
-6. **overall**: A numerical score representing an overall rating.
-7. **quality**: Possibly a qualitative assessment or another score linked to the quality of the content.
-8. **repeatability**: This may denote how often similar entries occur or how reliably an entry can be reproduced or confirmed.
+#### Insights:
+1. **Missing Values in 'date' and 'by':**
+   - The `date` feature has 99 missing entries, which could potentially impact time-series analyses or any model that incorporates temporal aspects.
+   - The `by` feature, presumably indicating the creator or contributor, has 262 missing values, which is significant (about 9.86% of the dataset). This could affect analyses related to attribution or contributions.
 
-### Insights
+### Skewness
+The skewness values for the numerical features are:
+- `overall`: 0.155 (approximately symmetric)
+- `quality`: 0.024 (approximately symmetric)
+- `repeatability`: 0.777 (positively skewed)
 
-1. **Temporal Analysis**:
-   - **Trend Over Time**: Analyzing the 'date' column can reveal trends and patterns over time. For instance, are there spikes in activity during specific months or years?
-   - **Engagement Levels**: Co-relating 'date' with 'overall' scores can provide insights into how the quality or perception of entries changes over time.
+#### Insights:
+1. **Overall and Quality Ratings:**
+   - Both `overall` and `quality` scores have skewness close to zero, indicating they are relatively symmetric and may not require transformations for normality.
+  
+2. **Repeatability Ratings:**
+   - The `repeatability` feature shows significant positive skewness (0.776). This suggests that most values may be concentrated on the lower end of the scale, indicating issues with repeatability may not be prevalent, or that there are more instances of low ratings with fewer high ratings.
+   - This could necessitate consideration for normalization or transformation (log, Box-Cox) if used in modeling.
 
-2. **Language Distribution**:
-   - **Language Popularity**: Analyzing the 'language' column can show which languages have more entries and possibly correlate them with the average 'overall' rating. It might inform language-specific practices or content adjustments.
+### Feature Importance
+The feature importance values indicate:
+- `overall`: 0.8217 (82.17%)
+- `quality`: 0.1783 (17.83%)
 
-3. **Content Type Analysis**:
-   - **Performance by Type**: Analyzing 'type' in relation to 'overall' and 'quality' can elucidate which types of entries tend to score better and resonate well with users.
-   - **Diversity of Content**: A diverse range in 'type' could indicate versatility in content offerings.
+#### Insights:
+1. **Dominance of Overall:**
+   - The `overall` rating accounts for a substantial majority of the importance attributed to features, suggesting it is the primary driver in whatever outcome is being modeled.
+   - The `quality` rating plays a secondary role, but still contributes notably. 
 
-4. **Authorship Trends**:
-   - **Contributors and Their Scores**: The 'by' column can identify top contributors in terms of quality scores or volume of submissions. Visualizing this data can highlight potential influencers within the dataset.
-   - **Author Consistency**: Analyzing repeatability linked to 'by' could illustrate how consistently authors produce high-quality content.
+### Suggested Actions:
+1. **Handling Missing Values:**
+   - **Date Handling:** Investigate the reason for missing dates. If dates are crucial for analysis, consider imputing missing values with mean/mode, or consider deriving dates from related features if applicable.
+   - **By Handling:** For the `by` feature with substantial missing values, assess the importance of this feature. If critical, consider using imputation or possibly creating a new category for missing values (i.e., "unknown").
 
-5. **Quality Analysis**:
-   - **Quality Ratings**: A comparative analysis between 'overall' and 'quality' can reveal discrepancies, guiding enhancements in content assessment processes.
-   - **Thresholds for Quality**: Identifying categories or scores that fall below acceptable quality levels and developing improvement plans.
+2. **Addressing Skewness:**
+   - Consider transformations for `repeatability` to achieve more normality depending on the goals of the analysis or modeling. For example, applying a log transformation can reduce skewness and help with modeling assumptions.
+  
+3. **Focus on Modeling:**
+   - Given the high importance of `overall`, focus initial predictive modeling efforts on how this feature could be best predicted or classified based on other features. 
+   - Assess model performance using `quality` as a secondary target or as an evaluative metric for the models derived primarily from `overall`.
 
-6. **Repeatability Insights**:
-   - **Redundant Content**: Insight into 'repeatability' may suggest whether duplicate content is an issue. High repeatability could call for unique content strategies.
-   - **Content Reliability**: Low repeatability with high quality might indicate unique, high-value contributions that could be spotlighted or further encouraged.
+4. **Further Analysis:**
+   - Conduct exploratory data analysis (EDA) to visualize the distributions of the key features, especially noting the relationships between `overall`, `quality`, and `repeatability`.
+   - Consider segmentation of the data based on `language` and `type` if they have sufficient diversity and volume for additional insights on performance metrics.
 
-### Possible Actions
-
-1. **Content Strategy Improvements**:
-   - Leverage insights to enhance the quality of less-performing content types or languages, potentially developing targeted training for authors.
-   
-2. **Stakeholder Engagement**:
-   - Recognize and reward high-performing contributors to encourage further quality contributions and engagement.
-
-3. **Language-Specific Initiatives**:
-   - Design content initiatives or marketing strategies tailored to the top-performing languages in the dataset.
-
-4. **Quality Review Mechanism**:
-   - Implement a system to regularly review and reassess the entries for quality, particularly focusing on those flagged as low quality or with low overall scores.
-
-5. **Trend Monitoring**:
-   - Set up dashboards to continuously monitor trends, allowing for proactive adjustments in content strategy based on emerging patterns.
-
-6. **Community Building**:
-   - Create a community forum or discussion space based on the most engaged language or content types to foster collaboration and idea generation.
-
-7. **Content Calendar**:
-   - If trends align with specific time periods, establishing a content calendar for anticipated high engagement times can optimize user interaction.
-
-By synthesizing and continually monitoring these insights and actions, the dataset can inform more strategic decision-making and enhance the value generated from the contributions.
+These steps can help in effectively dealing with the issues highlighted in the dataset while enabling deeper insights into the relationships and importance of the various features present.
 
 ## Visualizations
-![Visualization](/media/correlation_heatmap.png)
+![Visualization](media\correlation_heatmap.png)
+![Visualization](media\histogram_overall.png)
+![Visualization](media\histogram_quality.png)
+![Visualization](media\histogram_repeatability.png)
+![Visualization](media\boxplot_overall.png)
+![Visualization](media\boxplot_quality.png)
+![Visualization](media\boxplot_repeatability.png)

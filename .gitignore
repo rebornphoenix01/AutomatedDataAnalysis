@@ -2,3 +2,4 @@
 .env
 .autolysis-env
 requirements.txt
+autolysis_prev.py
